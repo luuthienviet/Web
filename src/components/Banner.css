@@ -1,0 +1,94 @@
+/* Banner.css */
+
+.banner {
+  width: 100%;
+  height: 500px; /* Điều chỉnh chiều cao banner theo ý muốn */
+  display: flex;
+  justify-content: flex-start; /* Đặt nội dung ở bên trái */
+  align-items: flex-start; /* Đặt nội dung lên trên */
+  padding: 30px 50px; /* Khoảng cách từ nội dung đến mép banner */
+  position: relative;
+  background-image: url('https://images.unsplash.com/photo-1549298916-b41d501d3772?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2000&q=80'); /* Đường dẫn ảnh của bạn */
+  background-size: cover; /* Hoặc 'contain' tùy thuộc vào hiệu ứng bạn muốn */
+  background-position: center; /* Căn giữa ảnh */
+  background-repeat: no-repeat; /* Không lặp lại ảnh */
+  color: white; /* Màu chữ */
+  overflow: hidden; /* Để đảm bảo lớp phủ không tràn ra ngoài */
+}
+
+.banner::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.4); /* Lớp phủ đen mờ (tùy chọn) */
+  z-index: 1;
+}
+
+.banner-content {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; /* Căn trái nội dung */
+   margin-top: 50px; /* Điều chỉnh giá trị này để di chuyển chữ xuống */
+  /* Bạn có thể thêm margin-top để tạo khoảng cách từ trên xuống nếu cần */
+  /* margin-top: 50px; */
+}
+
+.banner-text {
+  margin-bottom: 20px; /* Khoảng cách giữa phần chữ và các nút (nếu có) */
+  /* Bạn có thể thêm background cho phần chữ để tăng độ rõ ràng */
+  /* background-color: rgba(0, 0, 0, 0.3); */
+  /* padding: 10px; */
+  /* border-radius: 5px; */
+}
+
+.banner-text h1 {
+  font-size: 2.5em; /* Kích thước chữ lớn cho tiêu đề chính */
+  font-weight: bold; /* In đậm tiêu đề chính */
+  margin-bottom: 12px; /* Khoảng cách dưới tiêu đề chính */
+  color: rgb(255, 255, 255);
+
+}
+
+.banner-text h2 {
+  font-size: 1.8em; /* Kích thước chữ cho tiêu đề phụ */
+  font-weight: normal; /* Hoặc bold tùy ý */
+  margin-bottom: 10px; /* Khoảng cách dưới tiêu đề phụ */
+  color: rgb(255, 255, 255);
+}
+
+.banner-text p {
+  font-size: 1em; /* Kích thước chữ cho đoạn văn */
+  line-height: 1.6; /* Khoảng cách dòng cho đoạn văn */
+  margin-bottom: 10px; /* Khoảng cách dưới đoạn văn */
+  color: rgb(255, 255, 255);
+}
+
+.banner-buttons {
+  display: flex;
+  align-items: center;
+}
+
+.banner-buttons button {
+  padding: 10px 20px;
+  margin-right: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1em;
+}
+
+.banner-buttons .buy-now {
+  background-color: #007bff; /* Màu nút mua ngay */
+  color: white;
+}
+
+.banner-buttons .view-collection {
+  background-color: transparent;
+  color: white;
+  border: 1px solid white; /* Viền cho nút xem bộ sưu tập */
+}

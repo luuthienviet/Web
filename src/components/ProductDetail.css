@@ -1,0 +1,93 @@
+/* src/components/ProductDetail.css */
+.product-detail-container {
+  display: flex;
+  gap: 30px;
+  align-items: flex-start;
+  padding: 30px;
+  background-color: #1e1e1e; /* Màu nền tối */
+  color: #f0f0f0; /* Màu chữ sáng */
+}
+
+.product-image {
+  flex: 1;
+}
+
+.product-info {
+  flex: 1;
+}
+
+.product-info h1 {
+  font-size: 2.5em;
+  margin-bottom: 15px;
+}
+
+.product-info .price {
+  font-weight: bold;
+  color: #e44d26;
+  font-size: 1.8em;
+  margin-bottom: 20px;
+}
+
+.product-info .old-price {
+  text-decoration: line-through;
+  color: #999;
+  margin-right: 10px;
+}
+
+.color-selection,
+.size-selection {
+  margin-bottom: 20px;
+}
+
+.color-selection .label,
+.size-selection .label {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.color-options,
+.size-options {
+  display: flex;
+  gap: 10px;
+}
+
+.color-option,
+.size-option {
+  border: 1px solid #333;
+  padding: 8px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  background-color: #333;
+}
+
+.color-option.selected,
+.size-option.selected {
+  border-color: #e44d26;
+  color: #e44d26;
+}
+
+.buy-button {
+  background-color: #e44d26;
+  color: white;
+  padding: 12px 25px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1.2em;
+  transition: background-color 0.3s ease;
+}
+
+.buy-button:hover {
+  background-color: #bd3c1e;
+}
+
+.additional-info {
+  margin-top: 30px;
+  font-size: 0.9em;
+  color: #999;
+}
+
+.additional-info .care-instructions,
+.additional-info .hotline {
+  margin-bottom: 10px;
+}

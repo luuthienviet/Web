@@ -1,0 +1,60 @@
+/* src/components/Header.css */
+
+.main-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+}
+
+.logo {
+  /* Style cho logo */
+}
+
+.main-nav {
+  /* Style cho navigation */
+}
+
+.main-nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  align-items: center;
+}
+
+.main-nav ul li {
+  margin: 0 15px;
+}
+
+.main-nav ul li a { /* Style cho các liên kết */
+  color: #000000; /* Màu chữ mặc định */
+  text-decoration: none; /* Loại bỏ gạch chân mặc định */
+}
+
+.main-nav ul li a:hover { /* Style khi di chuột qua liên kết */
+  text-decoration: none; /* Tiếp tục loại bỏ gạch chân khi hover */
+  color: #a06262; /* Thay đổi màu chữ khi hover (tùy chọn) */
+}
+
+.main-nav ul li a:active { /* Style khi liên kết được nhấn */
+  color: #f50808;
+}
+
+.login-button-right {
+  color: #ffffff;
+  background: none;
+  border: none;
+  padding: 10px 15px;
+  cursor: pointer;
+  font-size: inherit;
+}
+
+.login-button-right:hover { /* Style khi di chuột qua nút Login */
+  /* Bạn có thể thêm hiệu ứng hover cho nút Login ở đây, ví dụ: đổi màu nền */
+  color: #cccccc;
+}
+
+.login-button-right:active {
+  color: #2e4bf0;
+}
