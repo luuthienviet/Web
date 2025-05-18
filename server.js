@@ -15,12 +15,12 @@ app.use(cors());
 // Cấu hình kết nối SQL Server
 const sqlConfig = {
   server: process.env.DB_SERVER,
-  database: process.env.DB_NAME,
+  database: process.env.DB_DATABASE,
   user: process.env.DB_USER,
   password: process.env.DB_PASSWORD,
   options: {
     encrypt: false,
-    trustServerCertificate: true,
+    trustServerCertificate: true
   },
 };
 
@@ -31,7 +31,7 @@ async function connectDB() {
     await sql.connect(sqlConfig);
     console.log('✅ Đã kết nối MSSQL thành công');
   } catch (err) {
-    console.error('❌ Lỗi khi kết nối DB:', err.message);
+    console.error('❌ Lỗi khi kết nối DB:', err);
   }
 }
 connectDB();
