@@ -1,4 +1,3 @@
-// server.js
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
@@ -12,8 +11,9 @@ const PORT = 5000;
 // Middleware
 app.use(bodyParser.json());
 app.use(cors());
+app.use('/images', express.static('public/images')); // Cho phép truy cập ảnh tĩnh
 
-// Cấu hình kết nối SQL Server
+// Cấu hình MSSQL
 const sqlConfig = {
   server: process.env.DB_SERVER,
   database: process.env.DB_DATABASE,
@@ -25,7 +25,7 @@ const sqlConfig = {
   },
 };
 
-// Kết nối kiểm tra DB một lần
+// Kết nối MSSQL một lần khi server khởi động
 async function connectDB() {
   try {
     await sql.connect(sqlConfig);
@@ -35,7 +35,6 @@ async function connectDB() {
   }
 }
 connectDB();
-
 
 // ===========================
 // 📌 ROUTE: LOGIN
@@ -50,18 +49,18 @@ app.post('/api/login', async (req, res) => {
       .query('SELECT id, username, password FROM Users WHERE username = @username');
 
     if (result.recordset.length === 0) {
-      return res.status(401).json({ message: 'Invalid username or password' });
+      return res.status(401).json({ message: 'Sai tên đăng nhập hoặc mật khẩu' });
     }
 
     const user = result.recordset[0];
     const isMatch = await bcrypt.compare(password, user.password);
 
     if (!isMatch) {
-      return res.status(401).json({ message: 'Invalid username or password' });
+      return res.status(401).json({ message: 'Sai tên đăng nhập hoặc mật khẩu' });
     }
 
     res.json({
-      message: 'Login successful',
+      message: 'Đăng nhập thành công',
       userId: user.id,
       username: user.username,
     });
@@ -71,9 +70,8 @@ app.post('/api/login', async (req, res) => {
   }
 });
 
-
 // ===========================
-// 📌 ROUTE: GET PRODUCT BY ID
+// 📦 MOCK PRODUCT DATA
 // ===========================
 const products = [
   { id: '1', name: 'Giày Chạy Bộ Bitis Hunter Running 2.0 Nam Màu Cam', imageUrl: '/images/giay1.png', price: 881300, description: 'A very comfortable shoe.' },
@@ -88,14 +86,23 @@ const products = [
   { id: '10', name: 'Giày Bóng Rổ Nam Nike Giannis Immortality 4 Ep - Đỏ', imageUrl: '/images/giay10.png', price: 2579000, description: 'Casual and easy to wear.' },
 ];
 
+// ===========================
+// 📌 ROUTE: GET ALL PRODUCTS
+// ===========================
+app.get('/api/products', (req, res) => {
+  res.json(products);
+});
+
+// ===========================
+// 📌 ROUTE: GET PRODUCT BY ID
+// ===========================
 app.get('/api/products/:id', (req, res) => {
-  const productId = req.params.id;
-  const product = products.find(p => p.id === productId);
+  const product = products.find(p => p.id === req.params.id);
 
   if (product) {
     res.json(product);
   } else {
-    res.status(404).json({ message: 'Product not found' });
+    res.status(404).json({ message: 'Không tìm thấy sản phẩm' });
   }
 });
 
