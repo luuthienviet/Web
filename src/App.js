@@ -3,19 +3,24 @@ import { Routes, Route, useNavigate } from 'react-router-dom';
 import Header from './components/Header';
 import Banner from './components/Banner';
 import ProductList from './components/ProductList';
-import ProductDetail from './components/ProductDetail';
 import Footer from './components/Footer';
-import LoginPage from './components/LoginPage';
 import LoginModal from './components/LoginModal';
-import GioiThieu from './puplic/GioiThieu';
-import SearchBar from './puplic/SearchBar';
-import { getAllProducts } from './services/productService'; // Đừng quên import
+import ProductDetail from './components/ProductDetail';
+import LoginPage from './components/LoginPage';
+import RegisterPage from './pages/Register'; // ✅ Thêm import
+import GioiThieu from './puplic/GioiThieu'; // ✅ Kiểm tra đúng thư mục puplic
+import LienHe from './pages/LienHe';
+import { AuthProvider } from './AuthContext';
+
+
+import { getAllProducts } from './services/productService';
 
 function App() {
   const navigate = useNavigate();
   const [products, setProducts] = useState([]);
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
   const [searchResults, setSearchResults] = useState('');
+  const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem('authToken'));
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -40,33 +45,42 @@ function App() {
 
   const openLoginModal = () => setIsLoginModalOpen(true);
   const closeLoginModal = () => setIsLoginModalOpen(false);
+
   const handleLoginSuccess = () => {
+    localStorage.setItem('authToken', 'fake_token'); // Hoặc lấy token thật từ server
+    setIsLoggedIn(true);
     closeLoginModal();
-    // Các xử lý sau đăng nhập nếu cần
   };
 
   return (
+    <AuthProvider>
     <>
       <Header onOpenLogin={openLoginModal} onSearch={handleSearch} />
       <Banner />
 
       <Routes>
         <Route path="/" element={<ProductList searchKeyword={searchResults} gender="all" />} />
-        <Route path="/san-pham/:id" element={<ProductDetail />} />
+        <Route path="/san-pham/:id" element={<ProductDetail isLoggedIn={isLoggedIn} />} />
+        <Route path="/products/:id" element={<ProductDetail isLoggedIn={isLoggedIn} />} />
+
         <Route path="/gioi-thieu" element={<GioiThieu />} />
         <Route path="/login" element={<LoginPage />} />
+        <Route path="/register" element={<RegisterPage />} /> {/* ✅ Route đăng ký */}
+        <Route path="/lien-he" element={<LienHe />} />
       </Routes>
 
       <Footer />
-
       {isLoginModalOpen && (
-        <LoginModal 
-          onClose={closeLoginModal} 
-          onLoginSuccess={handleLoginSuccess} 
+        <LoginModal
+          onClose={closeLoginModal}
+          onLoginSuccess={handleLoginSuccess}
         />
       )}
     </>
+    </AuthProvider>
   );
 }
 
 export default App;
+
+
