@@ -1,14 +1,14 @@
 // src/components/LoginPage.js
 import React, { useState } from 'react';
 import './LoginPage.css'; // Your existing CSS
-import { useNavigate } from 'react-router-dom';
-
+// import { useNavigate } from 'react-router-dom'; // No longer needed
+import { useAuth } from '../AuthContext'; // Assuming AuthContext.js is in src/
 
 function LoginPage() {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [loginError, setLoginError] = useState('');
-    const navigate = useNavigate(); // Can be removed if navigation is handled by AuthContext
+    // const navigate = useNavigate(); // Removed as it's no longer used
     const { login } = useAuth();
 
     const handleLogin = async () => {
@@ -24,8 +24,10 @@ function LoginPage() {
             });
 
             let data = {};
+            let text = ''; // Declare text outside the inner try block
+
             try {
-                const text = await response.text(); // Get response as text first
+                text = await response.text(); // Assign value to text
                 if (!text) {
                     throw new Error('Server returned an empty response.');
                 }
